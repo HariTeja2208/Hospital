@@ -34,4 +34,19 @@ public class PatientServices {
 
 	    return rs;
 	}
+    
+ // FIND PATIENT BY ID
+    public ResponseStructure<Patient> getPatientById(int id) {
+
+        Patient patient = patientRepo.findById(id)
+                .orElseThrow(() -> new UpdatePatientNotFoundException("Patient with id " + id + " not found"));
+
+        ResponseStructure<Patient> rs = new ResponseStructure<>();
+        rs.setStatuscode(HttpStatus.OK.value());
+        rs.setMessage("Patient fetched successfully");
+        rs.setData(patient);
+
+        return rs;
+    }
+
 }

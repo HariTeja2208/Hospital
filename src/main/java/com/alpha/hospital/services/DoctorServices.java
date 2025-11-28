@@ -38,9 +38,23 @@ public class DoctorServices {
 	    rs.setStatuscode(HttpStatus.OK.value());
 	    rs.setMessage("Doctor updated successfully");
 	    rs.setData(existingDoctor);
-
+	    
 	    return rs;
     }
     
+ // FIND DOCTOR BY ID
+    public ResponseStructure<Doctor> getDoctorById(int id) {
+
+        Doctor doctor = doctorRepo.findById(id)
+                .orElseThrow(() -> new UpdateDoctorNotFoundException("Doctor with id " + id + " not found"));
+
+        ResponseStructure<Doctor> rs = new ResponseStructure<>();
+        rs.setStatuscode(HttpStatus.OK.value());
+        rs.setMessage("Doctor fetched successfully");
+        rs.setData(doctor);
+
+        return rs;
+    }
+
     
 }

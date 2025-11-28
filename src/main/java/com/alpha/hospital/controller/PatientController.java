@@ -27,4 +27,11 @@ public class PatientController {
 
         return ps.updatePatient(id, newname);
     }
+    
+ // GET PATIENT BY ID
+    @GetMapping("/getpatient")
+    public ResponseStructure<Patient> getPatientById(@RequestParam int id) {
+        return ps.getPatientById(id);
+    }
+
 }

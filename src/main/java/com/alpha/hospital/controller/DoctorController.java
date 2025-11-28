@@ -10,29 +10,27 @@ import com.alpha.hospital.services.DoctorServices;
 @RestController
 public class DoctorController {
 
-    @Autowired
-    private DoctorServices ds;
+	@Autowired
+	private DoctorServices ds;
 
-    // SAVE DOCTOR
-    @PostMapping("/savedoctor")
-    public ResponseStructure<Doctor> saveDoctor(@RequestBody Doctor d) {
-        return ds.saveDoctor(d);
-    }
+	// SAVE DOCTOR
+	@PostMapping("/savedoctor")
+	public ResponseStructure<Doctor> saveDoctor(@RequestBody Doctor d) {
+		return ds.saveDoctor(d);
+	}
 
-    // UPDATE DOCTOR
-    @PutMapping("/updatedoctor")
-    public ResponseStructure<Doctor> updateDoctor(
-            @RequestParam int id,
-            @RequestParam String newname) {
+	// UPDATE DOCTOR
+	@PutMapping("/updatedoctor")
+	public ResponseStructure<Doctor> updateDoctor(@RequestParam int id, @RequestParam String newname) {
 
-        return ds.updateDoctor(id, newname);
-        
-        
-  
-    
-        
-        
-    
-    }
-    
+		return ds.updateDoctor(id, newname);
+
+	}
+
+	// GET DOCTOR BY ID
+	@GetMapping("/finddoctor")
+	public ResponseStructure<Doctor> getDoctorById(@RequestParam int id) {
+		return ds.getDoctorById(id);
+	}
+
 }
