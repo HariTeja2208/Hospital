@@ -16,16 +16,8 @@ public class PatientServices {
     private PatientRepo patientRepo;
 
     // SAVE PATIENT
-    public ResponseStructure<Patient> savePatient(Patient patient) {
-
-        Patient savedPatient = patientRepo.save(patient);
-
-        ResponseStructure<Patient> rs = new ResponseStructure<>();
-        rs.setStatuscode(HttpStatus.CREATED.value());
-        rs.setMessage("Patient saved successfully");
-        rs.setData(savedPatient);
-
-        return rs;
+    public void savePatient(Patient patient) {
+    	Patient savepatient = patientRepo.save(patient);
     }
 
     // UPDATE PATIENT
