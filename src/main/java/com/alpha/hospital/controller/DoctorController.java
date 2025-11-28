@@ -3,6 +3,7 @@ package com.alpha.hospital.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.alpha.hospital.ResponseStructure;
 import com.alpha.hospital.entity.Doctor;
 import com.alpha.hospital.services.DoctorServices;
 
@@ -12,8 +13,26 @@ public class DoctorController {
     @Autowired
     private DoctorServices ds;
 
+    // SAVE DOCTOR
     @PostMapping("/savedoctor")
-    public void saveDoctor(@RequestBody Doctor d ) {
-        ds.saveDoctor(d);
+    public ResponseStructure<Doctor> saveDoctor(@RequestBody Doctor d) {
+        return ds.saveDoctor(d);
     }
+
+    // UPDATE DOCTOR
+    @PutMapping("/updatedoctor")
+    public ResponseStructure<Doctor> updateDoctor(
+            @RequestParam int id,
+            @RequestParam String newname) {
+
+        return ds.updateDoctor(id, newname);
+        
+        
+  
+    
+        
+        
+    
+    }
+    
 }
