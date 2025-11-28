@@ -1,5 +1,7 @@
 package com.alpha.hospital.entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -7,7 +9,9 @@ import jakarta.persistence.Id;
 public class Patient {
 	@Id
 	private int id;
+	@Length(min=5,max=20)
 	private String name;
+	@Length(min=5,max=20)
 	private String disease;
 	public int getId() {
 		return id;

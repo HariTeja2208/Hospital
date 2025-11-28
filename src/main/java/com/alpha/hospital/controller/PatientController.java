@@ -7,6 +7,8 @@ import com.alpha.hospital.ResponseStructure;
 import com.alpha.hospital.entity.Patient;
 import com.alpha.hospital.services.PatientServices;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class PatientController {
 
@@ -15,8 +17,8 @@ public class PatientController {
 
     // SAVE PATIENT
     @PostMapping("/savepatient")
-    public ResponseStructure<Patient> savePatient(@RequestBody Patient patient) {
-        return ps.savePatient(patient);
+    public void savePatient(@Valid @RequestBody Patient patient) {
+        ps.savePatient(patient);
     }
 
     // UPDATE PATIENT
