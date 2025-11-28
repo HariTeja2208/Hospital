@@ -42,3 +42,4 @@ public class Patient {
 		return "Patient [id=" + id + ", name=" + name + ", disease=" + disease + "]";
 	}
 }
+
