@@ -32,5 +32,11 @@ public class DoctorController {
 	public ResponseStructure<Doctor> getDoctorById(@RequestParam int id) {
 		return ds.getDoctorById(id);
 	}
+	
+	//DELETE DOCTOR BY ID
+	 @DeleteMapping("/deletedoctor")
+	    public void deleteDoctor(@PathVariable int id) {
+	         ds.deleteDoctor(id);
+	    }
 
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.alpha.hospital.ResponseStructure;
+import com.alpha.hospital.dto.Patientdto;
 import com.alpha.hospital.entity.Patient;
 import com.alpha.hospital.services.PatientServices;
 
@@ -17,8 +18,8 @@ public class PatientController {
 
     // SAVE PATIENT
     @PostMapping("/savepatient")
-    public void savePatient(@Valid @RequestBody Patient patient) {
-        ps.savePatient(patient);
+    public void savePatient(@Valid @RequestBody Patientdto pdto) {
+        ps.savePatient(pdto);
     }
 
     // UPDATE PATIENT
@@ -32,6 +33,11 @@ public class PatientController {
     @GetMapping("/getpatient")
     public ResponseStructure<Patient> getPatientById(@RequestParam int id) {
         return ps.getPatientById(id);
+    }
+    // DELETE PATIENT BY ID
+    @DeleteMapping("/deletepatient")
+    public void deletePatient(@PathVariable int id) {
+         ps.deletePatient(id);
     }
 
 }

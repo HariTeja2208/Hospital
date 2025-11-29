@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.alpha.hospital.entity.Doctor;
+import com.alpha.hospital.exception.DeleteDoctorNotFoundException;
 import com.alpha.hospital.exception.UpdateDoctorNotFoundException;
 import com.alpha.hospital.repository.DoctorRepo;
 import com.alpha.hospital.ResponseStructure;
@@ -52,6 +53,20 @@ public class DoctorServices {
         rs.setStatuscode(HttpStatus.OK.value());
         rs.setMessage("Doctor fetched successfully");
         rs.setData(doctor);
+
+        return rs;
+    }
+    public ResponseStructure<String> deleteDoctor(int id) {
+
+        Doctor doctor = doctorRepo.findById(id)
+                .orElseThrow(() -> new DeleteDoctorNotFoundException("Doctor not found with ID: " + id));
+
+        doctorRepo.delete(doctor);
+
+        ResponseStructure<String> rs = new ResponseStructure<>();
+        rs.setStatuscode(HttpStatus.OK.value());
+        rs.setMessage("Doctor deleted successfully");
+        rs.setData("Deleted doctor with ID: " + id);
 
         return rs;
     }

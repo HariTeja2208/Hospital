@@ -5,9 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.alpha.hospital.entity.Patient;
+import com.alpha.hospital.exception.DeletePatientNotFoundException;
 import com.alpha.hospital.exception.UpdatePatientNotFoundException;
 import com.alpha.hospital.repository.PatientRepo;
 import com.alpha.hospital.ResponseStructure;
+import com.alpha.hospital.dto.Patientdto;
 
 @Service
 public class PatientServices {
@@ -16,8 +18,13 @@ public class PatientServices {
     private PatientRepo patientRepo;
 
     // SAVE PATIENT
-    public void savePatient(Patient patient) {
-    	Patient savepatient = patientRepo.save(patient);
+    public void savePatient(Patientdto pdto) {
+    	Patient p = new Patient();
+    	p.setName(pdto.getName());
+    	p.setAge(pdto.getAge());
+    	p.setDisease(pdto.getDisease());
+    	p.setGender(pdto.getGender());
+    	Patient savePatient= patientRepo.save(p);
     }
 
     // UPDATE PATIENT
@@ -45,6 +52,20 @@ public class PatientServices {
         rs.setStatuscode(HttpStatus.OK.value());
         rs.setMessage("Patient fetched successfully");
         rs.setData(patient);
+
+        return rs;
+    }
+    public ResponseStructure<String> deletePatient(int id) {
+
+        Patient patient = patientRepo.findById(id)
+                .orElseThrow(() -> new DeletePatientNotFoundException("Patient not found with ID: " + id));
+
+        patientRepo.delete(patient);
+
+        ResponseStructure<String> rs = new ResponseStructure<>();
+        rs.setStatuscode(HttpStatus.OK.value());
+        rs.setMessage("Patient deleted successfully");
+        rs.setData("Deleted patient with ID: " + id);
 
         return rs;
     }

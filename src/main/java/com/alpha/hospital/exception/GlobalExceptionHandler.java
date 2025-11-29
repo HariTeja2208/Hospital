@@ -17,6 +17,20 @@ import com.alpha.hospital.ResponseStructure;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+	
+	//DOCTOR NOT FOUND 
+	 @ExceptionHandler(DoctorNotFoundException.class)
+	    public ResponseEntity<ResponseStructure<String>> handleDoctorNotFound(DoctorNotFoundException ex) {
+
+	        ResponseStructure<String> rs = new ResponseStructure<>();
+	        rs.setStatuscode(HttpStatus.NOT_FOUND.value());
+	        rs.setMessage("Doctor Not Found");
+	        rs.setData(ex.getMessage());
+
+	        return new ResponseEntity<>(rs, HttpStatus.NOT_FOUND);
+	    }
+	 
+	//DOCTOR UPDATE NOT FOUND
     @ExceptionHandler(UpdateDoctorNotFoundException.class)
     public ResponseStructure<String> handleUpdateDoctorNotFound(UpdateDoctorNotFoundException ex) {
 
@@ -27,6 +41,31 @@ public class GlobalExceptionHandler {
 
         return rs;
     }
+    
+    //DELETE DOCTOR NOT FOUND
+    @ExceptionHandler(DeleteDoctorNotFoundException.class)
+    public ResponseEntity<ResponseStructure<String>> handleDeleteDoctor(DeleteDoctorNotFoundException ex) {
+
+        ResponseStructure<String> rs = new ResponseStructure<>();
+        rs.setStatuscode(HttpStatus.NOT_FOUND.value());
+        rs.setMessage("Doctor Not Found for Delete");
+        rs.setData(ex.getMessage());
+
+        return new ResponseEntity<>(rs, HttpStatus.NOT_FOUND);
+    }
+    
+    //PATIENT NOT FOUND
+    @ExceptionHandler(PatientNotFoundException.class)
+    public ResponseEntity<ResponseStructure<String>> handlePatientNotFound(PatientNotFoundException ex) {
+
+        ResponseStructure<String> rs = new ResponseStructure<>();
+        rs.setStatuscode(HttpStatus.NOT_FOUND.value());
+        rs.setMessage("Patient Not Found");
+        rs.setData(ex.getMessage());
+
+        return new ResponseEntity<>(rs, HttpStatus.NOT_FOUND);
+    }
+
 
     // PATIENT UPDATE NOT FOUND
     @ExceptionHandler(UpdatePatientNotFoundException.class)
@@ -38,6 +77,17 @@ public class GlobalExceptionHandler {
         rs.setData(ex.getMessage());
 
         return rs;
+    }
+    // DELETE PATIENT NOT FOUND EXCEPTION
+    @ExceptionHandler(DeletePatientNotFoundException.class)
+    public ResponseEntity<ResponseStructure<String>> handleDeletePatient(DeletePatientNotFoundException ex) {
+
+        ResponseStructure<String> rs = new ResponseStructure<>();
+        rs.setStatuscode(HttpStatus.NOT_FOUND.value());
+        rs.setMessage("Patient Not Found for Delete");
+        rs.setData(ex.getMessage());
+
+        return new ResponseEntity<>(rs, HttpStatus.NOT_FOUND);
     }
 
     // Global / Any Other Exception
@@ -51,6 +101,7 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(structure, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    
     @ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseStructure<Map<String, String>> handleMethodArgNotValid(MethodArgumentNotValidException ex){
 		Map<String,String> errormap=new HashMap<String, String>();
